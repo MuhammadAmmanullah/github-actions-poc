@@ -1,0 +1,27 @@
+name: "Module 2C: Manual Dispatch Workflow"
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: "Student Name"
+        required: true
+        default: "Muhammad Ammanullah"
+        type: string
+      greeting:
+        description: "Custom Greeting Message"
+        required: true
+        default: "Assalamu Alaikum from DevOps Lab"
+        type: string
+      data:
+        description: "Environment Payload Data"
+        required: false
+        default: "BS-SE-POC"
+        type: string
+jobs:
+  manual-dispatch-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Process Manual Inputs
+        run: |
+          echo "Greeting: ${{ inputs.greeting }}, ${{ inputs.name }}!"
+          echo "Payload Data Received: ${{ inputs.data }} | Trigger: ${{ github.event_name }}"

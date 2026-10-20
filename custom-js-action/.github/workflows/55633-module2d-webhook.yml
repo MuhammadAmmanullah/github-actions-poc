@@ -1,0 +1,13 @@
+name: "Module 2D: External Webhook Trigger"
+on:
+  repository_dispatch:
+    types: [custom-webhook]
+jobs:
+  webhook-handler:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Inspect Webhook Payload
+        run: |
+          echo "Webhook Event Action: ${{ github.event.action }}"
+          echo "Client Payload Student: ${{ github.event.client_payload.student }} (Actor: ${{ github.actor }})"
+          echo "Client Payload Environment: ${{ github.event.client_payload.environment }}"

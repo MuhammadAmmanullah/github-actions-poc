@@ -1,0 +1,17 @@
+name: "Module 2A: Push & Pull Request Multi-Branch Workflow"
+on:
+  push:
+    branches: [ "main", "dev" ]
+  pull_request:
+    branches: [ "main", "dev" ]
+jobs:
+  build-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+      - name: Verify Event Trigger & Target Branch
+        run: |
+          echo "Workflow triggered by event: ${{ github.event_name }} on branch ${{ github.ref }}"
+          echo "Repository: ${{ github.repository }}"
+          echo "Triggered by user: ${{ github.actor }} (Muhammad Ammanullah)"

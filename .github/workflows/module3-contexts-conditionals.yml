@@ -1,0 +1,32 @@
+name: Module 3 - Contexts and Conditionals
+
+on:
+  workflow_dispatch:
+  push:
+
+permissions:
+  contents: read
+
+jobs:
+  inspect-contexts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Inspect GitHub and runner contexts
+        env:
+          ACTOR: ${{ github.actor }}
+          RUNNER_OS: ${{ runner.os }}
+        run: |
+          echo "Actor: $ACTOR"
+          echo "Runner OS: $RUNNER_OS"
+
+      - name: Run when actor is present
+        if: ${{ github.actor != '' }}
+        run: echo "The github.actor condition passed."
+
+      - name: Run only on Linux
+        if: ${{ runner.os == 'Linux' }}
+        run: echo "The runner.os condition passed."
+
+      - name: This step is intentionally skipped
+        if: ${{ runner.os == 'Windows' }}
+        run: echo "This should not run on the Ubuntu runner."

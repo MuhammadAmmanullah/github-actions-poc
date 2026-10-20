@@ -1,0 +1,16 @@
+name: Module 5B - Self-Hosted Runner
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  report-runner:
+    runs-on: [self-hosted, linux]
+    steps:
+      - name: Report self-hosted runner
+        run: |
+          echo "Runner: ${{ runner.name }}"
+          echo "Operating system: ${{ runner.os }}"

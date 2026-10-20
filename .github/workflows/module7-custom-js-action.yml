@@ -1,0 +1,17 @@
+name: Module 7 - Custom JavaScript Action
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  run-custom-action:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run custom JavaScript action
+        uses: ./custom-js-action
+        with:
+          name: GitHub Actions

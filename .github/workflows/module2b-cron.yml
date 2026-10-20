@@ -1,0 +1,18 @@
+name: Module 2B - Cron
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  scheduled-task:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Report scheduled run
+        run: |
+          echo "Scheduled workflow executed."
+          echo "UTC time: $(date -u)"

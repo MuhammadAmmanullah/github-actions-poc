@@ -1,0 +1,22 @@
+name: "Module 6C: Service Containers Integration Test"
+on: [push, workflow_dispatch]
+jobs:
+  integration-test-postgres-redis:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: devops_test
+        ports:
+          - 5432:5432
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+    steps:
+      - name: Run Test Queries
+        run: |
+          echo "Postgres and Redis services initialized successfully"

@@ -1,0 +1,27 @@
+name: "Module 3: Architecture, Context Objects & Conditionals"
+on: [push]
+env:
+  WORKFLOW_STAGE: "context-verification"
+jobs:
+  inspect-contexts-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository Action
+        uses: actions/checkout@v4
+      - name: Log Built-in Context Objects
+        run: |
+          echo "github.actor: ${{ github.actor }}"
+          echo "github.repository: ${{ github.repository }}"
+          echo "runner.os: ${{ runner.os }}"
+      - name: Conditional Step Using success()
+        if: ${{ success() }}
+        run: echo "Prior steps succeeded."
+      - name: Cleanup Step Using always()
+        if: ${{ always() }}
+        run: echo "Always executed."
+  dependent-deploy-job:
+    needs: inspect-contexts-job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sequential Job Execution Verified
+        run: echo "Executed sequentially after inspect-contexts-job via needs keyword."

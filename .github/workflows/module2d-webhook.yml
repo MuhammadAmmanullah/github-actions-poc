@@ -1,0 +1,21 @@
+name: Module 2D - Repository Dispatch
+
+on:
+  repository_dispatch:
+    types:
+      - webhook-event
+
+permissions:
+  contents: read
+
+jobs:
+  handle-webhook:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Report webhook payload
+        env:
+          EVENT_TYPE: ${{ github.event.action }}
+          CLIENT_PAYLOAD: ${{ toJSON(github.event.client_payload) }}
+        run: |
+          echo "Event type: $EVENT_TYPE"
+          echo "Client payload: $CLIENT_PAYLOAD"

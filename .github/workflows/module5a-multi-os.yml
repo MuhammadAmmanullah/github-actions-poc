@@ -1,0 +1,19 @@
+name: Module 5A - Multi-OS
+
+on:
+  workflow_dispatch:
+  push:
+
+permissions:
+  contents: read
+
+jobs:
+  report-runner:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Report operating system
+        run: echo "Running on ${{ runner.os }} (${{ runner.name }})"

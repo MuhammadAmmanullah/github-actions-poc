@@ -1,0 +1,12 @@
+{
+  "name": "custom-js-action",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A small JavaScript GitHub Action.",
+  "scripts": {
+    "build": "ncc build src/index.js -o dist"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.38.3"
+  }
+}

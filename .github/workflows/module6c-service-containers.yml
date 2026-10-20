@@ -1,0 +1,52 @@
+name: Module 6C - Service Containers
+
+on:
+  workflow_dispatch:
+  push:
+
+permissions:
+  contents: read
+
+jobs:
+  check-services:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: app
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d app"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      redis:
+        image: redis:7
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - name: Verify service ports
+        run: |
+          python3 - <<'PY'
+          import socket
+          import time
+
+          for service, port in (("postgres", 5432), ("redis", 6379)):
+              for attempt in range(10):
+                  try:
+                      with socket.create_connection(("127.0.0.1", port), timeout=2):
+                          print(f"{service} is accepting connections on port {port}.")
+                          break
+                  except OSError:
+                      if attempt == 9:
+                          raise
+                      time.sleep(2)
+          PY

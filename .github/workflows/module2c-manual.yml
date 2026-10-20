@@ -1,0 +1,22 @@
+name: Module 2C - Manual Dispatch
+
+on:
+  workflow_dispatch:
+    inputs:
+      message:
+        description: Message to display
+        required: false
+        default: "Hello from workflow_dispatch"
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  manual-task:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display input
+        env:
+          MESSAGE: ${{ inputs.message }}
+        run: echo "$MESSAGE"

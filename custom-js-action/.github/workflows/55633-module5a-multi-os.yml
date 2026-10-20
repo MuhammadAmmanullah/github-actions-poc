@@ -1,0 +1,21 @@
+name: "Module 5A: Multi-OS GitHub-Hosted Runners"
+on: [push, workflow_dispatch]
+jobs:
+  linux-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify Ubuntu Linux Runner
+        run: uname -a
+  windows-job:
+    runs-on: windows-latest
+    steps:
+      - name: Execute PowerShell & Chocolatey
+        shell: pwsh
+        run: |
+          Write-Host "runner.os: ${{ runner.os }}"
+          choco -version
+  macos-job:
+    runs-on: macos-latest
+    steps:
+      - name: Verify macOS Environment
+        run: sw_vers
